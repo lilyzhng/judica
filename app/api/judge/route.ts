@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
+  defaultHeaders: {
+    "HTTP-Referer": process.env.YOUR_SITE_URL || "http://localhost:3000",
+    "X-Title": process.env.YOUR_SITE_NAME || "Judica",
+  },
 });
 
 const SYSTEM_PROMPT = `
@@ -57,7 +62,8 @@ export async function POST(req: NextRequest) {
     ];
 
     const completion = await client.chat.completions.create({
-      model: "gpt-5.1", // or whatever model name you use
+      model: "openai/gpt-5", // OpenRouter model format: provider/model
+      // Other options: "anthropic/claude-3-opus", "google/gemini-pro", "openai/gpt-3.5-turbo"
       temperature: 0,   // be deterministic & strict
       messages,
     });

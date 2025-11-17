@@ -1,5 +1,47 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Setup
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```bash
+# OpenRouter API Key (required)
+# Get your key from https://openrouter.ai/keys
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+
+# Optional: Your site info for OpenRouter analytics
+YOUR_SITE_URL=http://localhost:3000
+YOUR_SITE_NAME=Judica
+```
+
+**Important:** The project uses [OpenRouter](https://openrouter.ai) to access LLM models. You'll need to:
+1. Sign up at [openrouter.ai](https://openrouter.ai)
+2. Get your API key from [openrouter.ai/keys](https://openrouter.ai/keys)
+3. Add credits to your OpenRouter account
+
+### 3. Model Configuration (Optional)
+
+The app currently uses `openai/gpt-4-turbo` by default. To change the model, edit `app/api/judge/route.ts` line 65:
+
+```typescript
+model: "openai/gpt-4-turbo", // Change this to your preferred model
+```
+
+**Available models on OpenRouter:**
+- `openai/gpt-4-turbo` - Balanced performance and cost
+- `openai/gpt-3.5-turbo` - Faster and cheaper
+- `anthropic/claude-3-opus` - Very high quality
+- `google/gemini-pro` - Google's model
+- See all models at [openrouter.ai/models](https://openrouter.ai/models)
+
 ## Getting Started
 
 First, run the development server:
